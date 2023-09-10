@@ -1,15 +1,20 @@
+import { useState } from "react"
 import { MOCK_PROJECTS } from "./MockProject"
 import { Project } from "./Project"
 import ProjectList from "./ProjectList"
 
 const ProjectPage = () => {
+    const [projects, setProjects] = useState<Project[]>(MOCK_PROJECTS)
     function saveProject(project: Project) {
-        console.log("Saving project", project)
+        let updatedProjects = projects.map((p: Project) => {
+            return p.id === project.id ? project : p
+        })
+        setProjects(updatedProjects)
     }
     return (
         <>
             <h1>Project</h1>
-            <ProjectList onSave={saveProject} project={MOCK_PROJECTS} />
+            <ProjectList onSave={saveProject} project={projects} />
         </>
     )
 }
