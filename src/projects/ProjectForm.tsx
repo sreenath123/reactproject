@@ -1,22 +1,34 @@
+import { SyntheticEvent } from "react";
+import { Project } from "./Project";
 
-const ProjectForm = () => {
+interface ProjectFormProps {
+    onCancel: () => void;
+    onSave: (project: Project) => void;
+}
+const ProjectForm = ({ onCancel, onSave }: ProjectFormProps) => {
+
+    function handleSubmit(event: SyntheticEvent) {
+        event.preventDefault();
+        onSave(new Project({ name: "Updated Project" }))
+    }
+
     return (
-        <form className="input-group vertical">
+        <form className="input-group vertical" onSubmit={handleSubmit}>
             <label htmlFor="name">Project Name</label>
-            <input type="text" name="name" placeholder="enter name" />
+            <input id="name" type="text" name="name" placeholder="enter name" />
             <label htmlFor="description">Project Description</label>
 
-            <textarea name="description" placeholder="enter description"></textarea>
+            <textarea id="description" name="description" placeholder="enter description"></textarea>
             <label htmlFor="budget">Project Budget</label>
 
-            <input type="number" name="budget" placeholder="enter budget" />
+            <input id="budget" type="number" name="budget" placeholder="enter budget" />
             <label htmlFor="isActive">Active?</label>
-            <input type="checkbox" name="isActive" />
+            <input id="isActive" type="checkbox" name="isActive" />
 
             <div className="input-group">
                 <button className="primary bordered medium">Save</button>
                 <span></span>
-                <button type="button" className="bordered medium">cancel</button>
+                <button type="button" className="bordered medium" onClick={onCancel}>cancel</button>
             </div>
         </form>
     )

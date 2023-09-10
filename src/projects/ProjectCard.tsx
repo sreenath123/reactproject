@@ -2,17 +2,18 @@ import React from 'react'
 import { Project } from './Project'
 
 interface ProjectCardProp {
-    pro: Project
+    pro: Project;
+    onEdit: (project: Project) => void;
 }
 
 function formatDescription(description: string): string {
     return description.substring(0, 60) + '...';
 }
 
-const ProjectCard = ({ pro }: ProjectCardProp) => {
+const ProjectCard = ({ pro, onEdit }: ProjectCardProp) => {
 
     const handleEditClick = (projectBeingEdited: Project) => {
-        console.log(projectBeingEdited)
+        onEdit(projectBeingEdited)
     }
 
     return (
